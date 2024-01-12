@@ -3,15 +3,17 @@ import { FunctionComponent } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 
 import {
-  setDataLength,
+  // setDataLength,
   setLoading,
   setShortData,
   setLongData,
+  setPaginationBtn,
 } from "../../redux/store/appSlice";
 
 import QuantitySelect from "../QuantitySelect/QuantitySelect";
 import Table from "../Table/Table";
 import Pagination from "../Pagination/Pagination";
+import PersonInfo from "../PersonInfo/PersonInfo";
 
 import "./Main.scss";
 
@@ -28,7 +30,8 @@ const Main: FunctionComponent = () => {
       let result = await response.json();
       dispatch(setLoading(false));
       dispatch(setShortData(result));
-      dispatch(setLongData({ currentPage: 0, pageLimit: 50 }));
+      dispatch(setLongData({ page: 0, limit: 50 }));
+      dispatch(setPaginationBtn(result.length));
     }
     getData();
   }, [dispatch, dataLength]);
@@ -39,6 +42,7 @@ const Main: FunctionComponent = () => {
       <div>
         {loading ? null : <Pagination />}
         {loading ? <p>Loading data, please wait</p> : <Table />}
+        <PersonInfo />
       </div>
     </section>
   );

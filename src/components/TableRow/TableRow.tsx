@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { useAppDispatch } from "../../redux/hooks";
 import { setPersonData } from "../../redux/store/appSlice";
 
@@ -18,7 +18,10 @@ const TableRow = (props: ITableRowProps) => {
   const dispatch = useAppDispatch();
 
   return (
-    <ul onClick={() => dispatch(setPersonData(props.data.id))}>
+    <ul
+      onClick={() => dispatch(setPersonData(props.data.id))}
+      style={{ display: "flex", gap: "20px", listStyleType: "none" }}
+    >
       <li>{props.data.id}</li>
       <li>{props.data.firstName}</li>
       <li>{props.data.lastName}</li>
