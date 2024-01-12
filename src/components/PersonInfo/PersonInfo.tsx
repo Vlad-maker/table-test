@@ -10,41 +10,42 @@ interface IPersonInfo {
 }
 
 function PersonInfo() {
-  const personInfo: IPersonInfo[] = useAppSelector(
-    (state) => state.data.personData
-  );
+  const personId = useAppSelector((state) => state.data.personId);
+  const longData = useAppSelector((state) => state.data.longData);
+  const currentPerson = longData.find(({ id }) => id === personId);
+
   return (
     <div>
-      {!personInfo ? null : (
+      {!currentPerson ? null : (
         <div>
           <h3>Выбран пользователь:</h3>
           <div>
             <p>First name:</p>
-            <p>{personInfo[0]?.firstName}</p>
+            <p>{currentPerson.firstName}</p>
           </div>
           <div>
             <p>Last name:</p>
-            <p>{personInfo[0]?.lastName}</p>
+            <p>{currentPerson.lastName}</p>
           </div>
           <div>
             <p>Описание:</p>
-            <p>{personInfo[0]?.description}</p>
+            <p>{currentPerson.description}</p>
           </div>
           <div>
             <p>Адрес проживания:</p>
-            <p>{personInfo[0]?.address?.streetAddress}</p>
+            <p>{currentPerson.address?.streetAddress}</p>
           </div>
           <div>
             <p>Город:</p>
-            <p>{personInfo[0]?.address?.city}</p>
+            <p>{currentPerson.address?.city}</p>
           </div>
           <div>
             <p>Провинция/штат:</p>
-            <p>{personInfo[0]?.address?.state}</p>
+            <p>{currentPerson.address?.state}</p>
           </div>
           <div>
             <p>Индекс:</p>
-            <p>{personInfo[0]?.address?.zip}</p>
+            <p>{currentPerson.address?.zip}</p>
           </div>
         </div>
       )}

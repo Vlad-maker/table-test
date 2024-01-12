@@ -11,7 +11,7 @@ import arrowDown from "../../assets/icons/down.png";
 import "./Table.scss";
 
 interface ITableProps {
-  id: string;
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -21,6 +21,7 @@ interface ITableProps {
 const Table = () => {
   const dispatch = useAppDispatch();
   const loadedData = useAppSelector((state) => state.data.longData);
+  const page = useAppSelector((state) => state.data.page);
 
   const [filterIcon, setFilterIcon] = React.useState({
     id: false,
@@ -119,9 +120,11 @@ const Table = () => {
         </div>
 
         <div>
-          {loadedData.map((person: ITableProps) => (
-            <TableRow key={person.email} data={person} />
-          ))}
+          {loadedData
+            .slice((page - 1) * 50, page * 50)
+            .map((person: ITableProps) => (
+              <TableRow key={person.email} data={person} />
+            ))}
         </div>
       </div>
     </div>

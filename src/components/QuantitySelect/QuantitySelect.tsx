@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { setDataLength, setLoading } from "../../redux/store/appSlice";
+import { setPage, setDataLength, setLoading } from "../../redux/store/appSlice";
 
 import "./QuantitySelect.scss";
 
@@ -13,6 +13,7 @@ const QuantitySelect = () => {
       <button
         onClick={() => {
           if (dataLength !== 50) {
+            dispatch(setPage(1));
             dispatch(setDataLength(50));
             dispatch(setLoading(true));
           }

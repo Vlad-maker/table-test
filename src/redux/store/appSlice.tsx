@@ -1,22 +1,50 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface Person {
+  id: number;
+  address: {
+    streetAddress: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+  city: string;
+  state: string;
+  streetAddress: string;
+  zip: string;
+  description: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+}
+
+// Pick - Выбираем из интерфейса свойства и их типы (phone: string;)
+// keyof - Выбирает только ключи из интерфейса(полученного)
+type SortKeys = keyof Pick<
+  Person,
+  "id" | "email" | "firstName" | "lastName" | "phone"
+>;
+
 // тип для состояния приложения
-type AppState = {
+interface AppState {
+  page: number;
   dataLength: number;
   loading: boolean;
   shortData: string | string[];
-  longData: string | string[] | any;
-  personData: string | string[] | any;
+  longData: Person[];
+  personId: Person["id"] | null;
   buttons: any[];
   sortBy: {} | string | string[] | any;
-};
+}
 
 const initialState: AppState = {
+  page: 1,
   dataLength: 50,
   loading: true,
   shortData: [],
   longData: [],
-  personData: "",
+  personId: null,
   buttons: [],
   sortBy: { id: false, firstName: false, lastName: false },
 };
@@ -25,6 +53,9 @@ const appSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
+    setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
+    },
     setDataLength: (state, action: PayloadAction<number>) => {
       state.dataLength = action.payload;
     },
@@ -34,182 +65,98 @@ const appSlice = createSlice({
     setShortData: (state, action: PayloadAction<string | string[]>) => {
       state.shortData = action.payload;
     },
-    setLongData: (state, action: PayloadAction<string | string[] | any>) => {
-      state.longData = state.shortData.slice(
-        action.payload.limit * action.payload.page,
-        action.payload.limit * (action.payload.page + 1)
-      );
+    setPersonId: (state, action: PayloadAction<AppState["personId"]>) => {
+      state.personId = action.payload;
     },
-    setPersonData: (state, action: PayloadAction<string | string[]>) => {
-      action.payload !== ""
-        ? (state.personData = state.longData.filter(
-            (person: { id: string }) => person.id === action.payload
-          ))
-        : (state.personData = "");
+    setLongData: (state, action: PayloadAction<Person[]>) => {
+      state.longData = action.payload;
     },
     setPaginationBtn: (state) => {
       state.buttons = new Array(Math.ceil(state.longData.length / 50)).fill(
         "buttons"
       );
     },
-    sortData: (state, action: PayloadAction<string | string[]>) => {
-      if (action.payload === "id") {
-        if (state.sortBy.id) {
-          state.longData = state.longData.sort(
-            (
-              prev: {
-                id: number;
-                prev: "string";
-              },
-              next: {
-                id: number;
-                next: "string";
-              }
-            ) => prev.id - next.id
-          );
-        } else if (!state.sortBy.id) {
-          state.longData = state.longData.sort(
-            (
-              prev: {
-                id: number;
-                prev: "string";
-              },
-              next: {
-                id: number;
-                b: "string";
-              }
-            ) => next.id - prev.id
-          );
+    sortData: (state, action: PayloadAction<SortKeys>) => {
+      switch (action.payload) {
+        case "id": {
+          if (state.sortBy.id) {
+            state.longData = state.longData.sort(
+              (prev, next) => prev.id - next.id
+            );
+          } else if (!state.sortBy.id) {
+            state.longData = state.longData.sort(
+              (prev, next) => next.id - prev.id
+            );
+          }
+          state.sortBy.id = !state.sortBy.id;
+          break;
         }
-        state.sortBy.id = !state.sortBy.id;
-      } else if (action.payload === "firstName") {
-        if (state.sortBy.firstName) {
-          state.longData = state.longData.sort(
-            (
-              prev: {
-                firstName: string;
-                prev: "string";
-              },
-              next: {
-                firstName: string;
-                next: "string";
-              }
-            ) => prev.firstName.localeCompare(next.firstName)
-          );
-        } else if (!state.sortBy.firstName) {
-          state.longData = state.longData.sort(
-            (
-              prev: {
-                firstName: string;
-                prev: "string";
-              },
-              next: {
-                firstName: string;
-                next: "string";
-              }
-            ) => next.firstName.localeCompare(prev.firstName)
-          );
+        case "firstName": {
+          if (state.sortBy.firstName) {
+            state.longData = state.longData.sort((prev, next) =>
+              prev.firstName.localeCompare(next.firstName)
+            );
+          } else if (!state.sortBy.firstName) {
+            state.longData = state.longData.sort((prev, next) =>
+              next.firstName.localeCompare(prev.firstName)
+            );
+          }
+          state.sortBy.firstName = !state.sortBy.firstName;
+          break;
         }
-        state.sortBy.firstName = !state.sortBy.firstName;
-      } else if (action.payload === "lastName") {
-        if (state.sortBy.lastName) {
-          state.longData = state.longData.sort(
-            (
-              prev: {
-                lastName: string;
-                prev: "string";
-              },
-              next: {
-                lastName: string;
-                next: "string";
-              }
-            ) => prev.lastName.localeCompare(next.lastName)
-          );
-        } else if (!state.sortBy.lastName) {
-          state.longData = state.longData.sort(
-            (
-              prev: {
-                lastName: string;
-                prev: "string";
-              },
-              next: {
-                lastName: string;
-                next: "string";
-              }
-            ) => next.lastName.localeCompare(prev.lastName)
-          );
+        case "lastName": {
+          if (state.sortBy.lastName) {
+            state.longData = state.longData.sort((prev, next) =>
+              prev.lastName.localeCompare(next.lastName)
+            );
+          } else if (!state.sortBy.lastName) {
+            state.longData = state.longData.sort((prev, next) =>
+              next.lastName.localeCompare(prev.lastName)
+            );
+          }
+          state.sortBy.lastName = !state.sortBy.lastName;
+          break;
         }
-        state.sortBy.lastName = !state.sortBy.lastName;
-      } else if (action.payload === "email") {
-        if (state.sortBy.email) {
-          state.longData = state.longData.sort(
-            (
-              prev: {
-                email: string;
-                prev: "string";
-              },
-              next: {
-                email: string;
-                next: "string";
-              }
-            ) => prev.email.localeCompare(next.email)
-          );
-        } else if (!state.sortBy.email) {
-          state.longData = state.longData.sort(
-            (
-              prev: {
-                email: string;
-                prev: "string";
-              },
-              next: {
-                email: string;
-                next: "string";
-              }
-            ) => next.email.localeCompare(prev.email)
-          );
+        case "email": {
+          if (state.sortBy.email) {
+            state.longData = state.longData.sort((prev, next) =>
+              prev.email.localeCompare(next.email)
+            );
+          } else if (!state.sortBy.email) {
+            state.longData = state.longData.sort((prev, next) =>
+              next.email.localeCompare(prev.email)
+            );
+          }
+          state.sortBy.email = !state.sortBy.email;
+          break;
         }
-        state.sortBy.email = !state.sortBy.email;
-      } else if (action.payload === "phone") {
-        if (state.sortBy.phone) {
-          state.longData = state.longData.sort(
-            (
-              prev: {
-                phone: string;
-                prev: "string";
-              },
-              next: {
-                phone: string;
-                next: "string";
-              }
-            ) => prev.phone.localeCompare(next.phone)
-          );
-        } else if (!state.sortBy.phone) {
-          state.longData = state.longData.sort(
-            (
-              prev: {
-                phone: string;
-                prev: "string";
-              },
-              next: {
-                phone: string;
-              }
-            ) => next.phone.localeCompare(prev.phone)
-          );
+        case "phone": {
+          if (state.sortBy.phone) {
+            state.longData = state.longData.sort((prev, next) =>
+              prev.phone.localeCompare(next.phone)
+            );
+          } else if (!state.sortBy.phone) {
+            state.longData = state.longData.sort((prev, next) =>
+              next.phone.localeCompare(prev.phone)
+            );
+          }
+          state.sortBy.phone = !state.sortBy.phone;
+          break;
         }
-        state.sortBy.phone = !state.sortBy.phone;
-      } else return console.log("error");
+      }
     },
   },
 });
 
 export const {
+  setPage,
   setDataLength,
   setLoading,
+  sortData,
   setShortData,
   setLongData,
-  setPersonData,
+  setPersonId,
   setPaginationBtn,
-  sortData,
 } = appSlice.actions;
 
 export default appSlice.reducer;

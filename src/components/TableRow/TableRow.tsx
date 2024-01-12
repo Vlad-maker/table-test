@@ -1,12 +1,12 @@
 import React from "react";
 import { useAppDispatch } from "../../redux/hooks";
-import { setPersonData } from "../../redux/store/appSlice";
+import { setPersonId } from "../../redux/store/appSlice";
 
 import "./TableRow.scss";
 
 interface ITableRowProps {
   data: {
-    id: string;
+    id: number;
     firstName: string;
     lastName: string;
     email: string;
@@ -19,7 +19,7 @@ const TableRow = (props: ITableRowProps) => {
 
   return (
     <ul
-      onClick={() => dispatch(setPersonData(props.data.id))}
+      onClick={() => dispatch(setPersonId(props.data.id))}
       style={{ display: "flex", gap: "20px", listStyleType: "none" }}
     >
       <li>{props.data.id}</li>
