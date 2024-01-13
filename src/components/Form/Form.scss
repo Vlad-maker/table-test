@@ -1,0 +1,78 @@
+@import "../../styles/variables";
+
+.form__section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: $bgBlock;
+  border-radius: 12px;
+  border: 1px solid $border;
+  padding: 10px;
+}
+
+.form__btn_toggle {
+  align-self: center;
+  padding: 5px 30px;
+  border-radius: 6px;
+  border: none;
+  background-color: $formBtn;
+  color: $white;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: $hover;
+    color: $white;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.input__label {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(28px, auto);
+
+  p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+    color: $sky-blue;
+  }
+}
+
+.input {
+  border: 1px solid $border;
+  border-radius: 5px;
+  padding: 3px;
+  background-color: $formBtn;
+  color: $white;
+  outline: none;
+}
+
+.form__btn_submit {
+  max-width: 150px;
+  padding: 5px 30px;
+  border-radius: 6px;
+  border: none;
+  background-color: $hover;
+  color: $white;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: $blue;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    background-color: $disabled;
+  }
+}

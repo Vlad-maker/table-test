@@ -1,0 +1,14 @@
+@import "../../styles/variables";
+
+.table__row {
+  padding-left: 0;
+  margin: 7px 0;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 40px 1fr 1fr 2fr 110px;
+}
+
+.table__row_item {
+  text-align: center;
+  cursor: pointer;
+}

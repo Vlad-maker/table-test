@@ -32,100 +32,103 @@ const Table = () => {
   });
 
   return (
-    <div>
+    <div className="table__title">
       <div>
-        <div>
-          <ul style={{ display: "flex", gap: "20px", listStyleType: "none" }}>
-            <li
-              onClick={() => {
-                dispatch(sortData("id"));
-                setFilterIcon((prev) => ({
-                  ...prev,
-                  id: !filterIcon.id,
-                }));
-              }}
-            >
-              id
-              <img
-                src={filterIcon.id ? arrowUp : arrowDown}
-                alt="arrow"
-                style={{ maxWidth: "15px" }}
-              />
-            </li>
-            <li
-              onClick={() => {
-                dispatch(sortData("firstName"));
-                setFilterIcon((prev) => ({
-                  ...prev,
-                  firstName: !filterIcon.firstName,
-                }));
-              }}
-            >
-              firstName
-              <img
-                src={filterIcon.firstName ? arrowUp : arrowDown}
-                alt="arrow"
-                style={{ maxWidth: "15px" }}
-              />
-            </li>
-            <li
-              onClick={() => {
-                dispatch(sortData("lastName"));
-                setFilterIcon((prev) => ({
-                  ...prev,
-                  lastName: !filterIcon.lastName,
-                }));
-              }}
-            >
-              lastName{" "}
-              <img
-                src={filterIcon.lastName ? arrowUp : arrowDown}
-                alt="arrow"
-                style={{ maxWidth: "15px" }}
-              />
-            </li>
-            <li
-              onClick={() => {
-                dispatch(sortData("email"));
-                setFilterIcon((prev) => ({
-                  ...prev,
-                  email: !filterIcon.email,
-                }));
-              }}
-            >
-              email{" "}
-              <img
-                src={filterIcon.email ? arrowUp : arrowDown}
-                alt="arrow"
-                style={{ maxWidth: "15px" }}
-              />
-            </li>
-            <li
-              onClick={() => {
-                dispatch(sortData("phone"));
-                setFilterIcon((prev) => ({
-                  ...prev,
-                  phone: !filterIcon.phone,
-                }));
-              }}
-            >
-              phone
-              <img
-                src={filterIcon.phone ? arrowUp : arrowDown}
-                alt="arrow"
-                style={{ maxWidth: "15px" }}
-              />
-            </li>
-          </ul>
-        </div>
+        <ul className="table__title_list">
+          <li
+            className="table__title_item"
+            onClick={() => {
+              dispatch(sortData("id"));
+              setFilterIcon((prev) => ({
+                ...prev,
+                id: !filterIcon.id,
+              }));
+            }}
+          >
+            ID
+            <img
+              src={filterIcon.id ? arrowUp : arrowDown}
+              alt="arrow"
+              style={{ maxWidth: "15px", marginLeft: "5px" }}
+            />
+          </li>
+          <li
+            className="table__title_item"
+            onClick={() => {
+              dispatch(sortData("firstName"));
+              setFilterIcon((prev) => ({
+                ...prev,
+                firstName: !filterIcon.firstName,
+              }));
+            }}
+          >
+            FirstName
+            <img
+              src={filterIcon.firstName ? arrowUp : arrowDown}
+              alt="arrow"
+              style={{ maxWidth: "15px", marginLeft: "5px" }}
+            />
+          </li>
+          <li
+            className="table__title_item"
+            onClick={() => {
+              dispatch(sortData("lastName"));
+              setFilterIcon((prev) => ({
+                ...prev,
+                lastName: !filterIcon.lastName,
+              }));
+            }}
+          >
+            LastName{" "}
+            <img
+              src={filterIcon.lastName ? arrowUp : arrowDown}
+              alt="arrow"
+              style={{ maxWidth: "15px", marginLeft: "5px" }}
+            />
+          </li>
+          <li
+            className="table__title_item"
+            onClick={() => {
+              dispatch(sortData("email"));
+              setFilterIcon((prev) => ({
+                ...prev,
+                email: !filterIcon.email,
+              }));
+            }}
+          >
+            Email{" "}
+            <img
+              src={filterIcon.email ? arrowUp : arrowDown}
+              alt="arrow"
+              style={{ maxWidth: "15px", marginLeft: "5px" }}
+            />
+          </li>
+          <li
+            className="table__title_item"
+            onClick={() => {
+              dispatch(sortData("phone"));
+              setFilterIcon((prev) => ({
+                ...prev,
+                phone: !filterIcon.phone,
+              }));
+            }}
+          >
+            Phone
+            <img
+              src={filterIcon.phone ? arrowUp : arrowDown}
+              alt="arrow"
+              style={{ maxWidth: "15px", marginLeft: "5px" }}
+            />
+          </li>
+        </ul>
+      </div>
 
-        <div>
-          {loadedData
-            .slice((page - 1) * 50, page * 50)
-            .map((person: ITableProps) => (
-              <TableRow key={person.email} data={person} />
-            ))}
-        </div>
+      <div>
+        {loadedData
+          .slice((page - 1) * 50, page * 50)
+          .map((person: ITableProps) => (
+            <TableRow key={person.email} data={person} />
+          ))}
       </div>
     </div>
   );

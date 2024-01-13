@@ -11,7 +11,7 @@ const Pagination = () => {
   const paginationButtons = useAppSelector((state) => state.data.buttons);
 
   return (
-    <div>
+    <div className="pagination">
       {paginationButtons.length > 1 &&
         paginationButtons.map((_, index) => (
           <button

@@ -1,0 +1,42 @@
+@import "../../styles/variables";
+
+.person__info {
+  background-color: $bgBlock;
+  padding: 20px 10px;
+  border-radius: 12px;
+  border: 1px solid $border;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.person__info_heading {
+  color: $sky-blue;
+  margin: 0;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.person__info_block {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted $border;
+
+  &:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.person__info_title {
+  margin: 0;
+  max-width: 120px;
+  width: 100%;
+  color: $blue;
+}
+
+.person__info_data {
+  margin: 0;
+}

@@ -19,14 +19,14 @@ interface Person {
   phone: string;
 }
 
-// Pick - Выбираем из интерфейса свойства и их типы (phone: string;)
-// keyof - Выбирает только ключи из интерфейса(полученного)
+// Pick - Выбираем из интерфейса свойства и их типы
+// keyof - Выбираем только ключи из полученного интерфейса
+
 type SortKeys = keyof Pick<
   Person,
   "id" | "email" | "firstName" | "lastName" | "phone"
 >;
 
-// тип для состояния приложения
 interface AppState {
   page: number;
   dataLength: number;
@@ -75,6 +75,10 @@ const appSlice = createSlice({
       state.buttons = new Array(Math.ceil(state.longData.length / 50)).fill(
         "buttons"
       );
+    },
+    setNewPerson: (state, action) => {
+      let copy = { ...action.payload };
+      state.longData.unshift(copy);
     },
     sortData: (state, action: PayloadAction<SortKeys>) => {
       switch (action.payload) {
@@ -157,6 +161,7 @@ export const {
   setLongData,
   setPersonId,
   setPaginationBtn,
+  setNewPerson,
 } = appSlice.actions;
 
 export default appSlice.reducer;

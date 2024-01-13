@@ -1,0 +1,23 @@
+@import "../../styles/variables";
+
+.table__title {
+  background-color: $bgBlock;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid $border;
+  box-sizing: border-box;
+}
+
+.table__title_list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 40px 1fr 1fr 2fr 110px;
+}
+
+.table__title_item {
+  display: flex;
+  justify-content: center;
+  color: $blue;
+}

@@ -2,54 +2,73 @@ import React from "react";
 import { useAppSelector } from "../../redux/hooks";
 import "./PersonInfo.scss";
 
-interface IPersonInfo {
-  firstName: string;
-  lastName: string;
-  description: string;
-  address: { streetAddress: string; city: string; state: string; zip: string };
-}
-
 function PersonInfo() {
   const personId = useAppSelector((state) => state.data.personId);
   const longData = useAppSelector((state) => state.data.longData);
   const currentPerson = longData.find(({ id }) => id === personId);
 
   return (
-    <div>
+    <>
       {!currentPerson ? null : (
-        <div>
-          <h3>Выбран пользователь:</h3>
-          <div>
-            <p>First name:</p>
-            <p>{currentPerson.firstName}</p>
+        <div className="person__info">
+          <h3 className="person__info_heading">Person:</h3>
+          <div className="person__info_block">
+            <p className="person__info_title">ID:</p>
+            <p className="person__info_data">{currentPerson.id}</p>
           </div>
-          <div>
-            <p>Last name:</p>
-            <p>{currentPerson.lastName}</p>
+          <div className="person__info_block">
+            <p className="person__info_title">First name:</p>
+            <p className="person__info_data">{currentPerson.firstName}</p>
           </div>
-          <div>
-            <p>Описание:</p>
-            <p>{currentPerson.description}</p>
+          <div className="person__info_block">
+            <p className="person__info_title">Last name:</p>
+            <p className="person__info_data">{currentPerson.lastName}</p>
           </div>
-          <div>
-            <p>Адрес проживания:</p>
-            <p>{currentPerson.address?.streetAddress}</p>
+          <div className="person__info_block">
+            <p className="person__info_title">Email:</p>
+            <p className="person__info_data">{currentPerson.email}</p>
           </div>
-          <div>
-            <p>Город:</p>
-            <p>{currentPerson.address?.city}</p>
+          <div className="person__info_block">
+            <p className="person__info_title">Phone:</p>
+            <p className="person__info_data">{currentPerson.phone}</p>
           </div>
-          <div>
-            <p>Провинция/штат:</p>
-            <p>{currentPerson.address?.state}</p>
-          </div>
-          <div>
-            <p>Индекс:</p>
-            <p>{currentPerson.address?.zip}</p>
-          </div>
+          {currentPerson.address?.streetAddress ? (
+            <div className="person__info_block">
+              <p className="person__info_title">StreetAddress:</p>
+              <p className="person__info_data">
+                {currentPerson.address?.streetAddress}
+              </p>
+            </div>
+          ) : null}
+          {currentPerson.address?.city ? (
+            <div className="person__info_block">
+              <p className="person__info_title">City:</p>
+              <p className="person__info_data">{currentPerson.address?.city}</p>
+            </div>
+          ) : null}
+          {currentPerson.address?.state ? (
+            <div className="person__info_block">
+              <p className="person__info_title">State:</p>
+              <p className="person__info_data">
+                {currentPerson.address?.state}
+              </p>
+            </div>
+          ) : null}
+          {currentPerson.address?.zip ? (
+            <div className="person__info_block">
+              <p className="person__info_title">Zip:</p>
+              <p className="person__info_data">{currentPerson.address?.zip}</p>
+            </div>
+          ) : null}
+          {currentPerson.description ? (
+            <div className="person__info_block">
+              <p className="person__info_title">Description:</p>
+              <p className="person__info_data">{currentPerson.description}</p>
+            </div>
+          ) : null}
         </div>
       )}
-    </div>
+    </>
   );
 }
 

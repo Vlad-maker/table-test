@@ -20,13 +20,13 @@ const TableRow = (props: ITableRowProps) => {
   return (
     <ul
       onClick={() => dispatch(setPersonId(props.data.id))}
-      style={{ display: "flex", gap: "20px", listStyleType: "none" }}
+      className="table__row"
     >
-      <li>{props.data.id}</li>
-      <li>{props.data.firstName}</li>
-      <li>{props.data.lastName}</li>
-      <li>{props.data.email}</li>
-      <li>{props.data.phone}</li>
+      <li className="table__row_item">{props.data.id}</li>
+      <li className="table__row_item">{props.data.firstName}</li>
+      <li className="table__row_item">{props.data.lastName}</li>
+      <li className="table__row_item">{props.data.email}</li>
+      <li className="table__row_item">{props.data.phone}</li>
     </ul>
   );
 };

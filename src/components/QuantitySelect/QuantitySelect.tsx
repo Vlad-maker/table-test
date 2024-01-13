@@ -9,8 +9,9 @@ const QuantitySelect = () => {
   const dispatch = useAppDispatch();
   const dataLength = useAppSelector((state) => state.data.dataLength);
   return (
-    <div>
+    <div className="select">
       <button
+        className="select__btn"
         onClick={() => {
           if (dataLength !== 50) {
             dispatch(setPage(1));
@@ -22,6 +23,7 @@ const QuantitySelect = () => {
         Short list
       </button>
       <button
+        className="select__btn"
         onClick={() => {
           if (dataLength !== 1000) {
             dispatch(setDataLength(1000));

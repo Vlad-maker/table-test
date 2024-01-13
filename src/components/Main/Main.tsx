@@ -1,20 +1,23 @@
 import React from "react";
 import { FunctionComponent } from "react";
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 
+// Redux
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import {
-  // setDataLength,
   setLoading,
   setShortData,
   setLongData,
   setPaginationBtn,
 } from "../../redux/store/appSlice";
 
+// Components
 import QuantitySelect from "../QuantitySelect/QuantitySelect";
-import Table from "../Table/Table";
+import Form from "../Form/Form";
 import Pagination from "../Pagination/Pagination";
+import Table from "../Table/Table";
 import PersonInfo from "../PersonInfo/PersonInfo";
 
+// Styles
 import "./Main.scss";
 
 const Main: FunctionComponent = () => {
@@ -40,11 +43,10 @@ const Main: FunctionComponent = () => {
   return (
     <section className="main">
       <QuantitySelect />
-      <div>
-        {loading ? null : <Pagination />}
-        {loading ? <p>Loading data, please wait</p> : <Table />}
-        <PersonInfo />
-      </div>
+      <Form />
+      {loading ? null : <Pagination />}
+      {loading ? <p>Loading data, please wait</p> : <Table />}
+      <PersonInfo />
     </section>
   );
 };
