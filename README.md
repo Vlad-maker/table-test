@@ -7,4 +7,4 @@
 - [SCSS](https://sass-scss.ru/)
 
 ## Примечание
-Тестирова с помощью React testing library и React bundle analizer.
+Тестировал с помощью React testing library и React bundle analizer.
